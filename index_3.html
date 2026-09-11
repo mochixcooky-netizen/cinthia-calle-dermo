@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinthia Calle</title>
+  <meta name="description" content="Fichas digitales para centros de estética. Cada clienta en su lugar, todo desde el celular." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS — paleta, tipografía, espacio
+       ============================================================ */
+    :root {
+      /* Colores — modo claro */
+      --bg:        #EDEAE4;   /* crema lino, como una ficha de papel */
+      --surface:   #F6F3EF;   /* superficie de cards/paneles */
+      --surface-2: #FFFFFF;   /* superficie más limpia */
+      --ink:       #1B2730;   /* pizarra oscuro, sesgo azul */
+      --muted:     #6C7B88;   /* texto secundario, gris acero */
+      --border:    rgba(27, 39, 48, .11);
+      --accent:    #3B6E60;   /* verde-teal oscuro — orden, calma, salud */
+      --accent-lt: #4D8A7A;   /* hover del acento */
+      --cta:       #C24F38;   /* rojo ladrillo — solo para el CTA */
+      --cta-h:     #A83F2B;   /* hover del CTA */
+      --shadow:    0 2px 20px rgba(27, 39, 48, .07);
+
+      /* Tipografía */
+      --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --body:    'Outfit', system-ui, -apple-system, sans-serif;
+
+      /* Escala de tipo */
+      --t-2xs: .7rem;
+      --t-xs:  .8rem;
+      --t-sm:  .9rem;
+      --t-md:  1.125rem;
+      --t-lg:  1.4rem;
+      --t-xl:  1.85rem;
+      --t-2xl: 2.4rem;
+      --t-3xl: 3.2rem;
+
+      /* Espaciado vertical */
+      --sec: clamp(3.5rem, 8vw, 6rem);
+    }
+
+    /* Modo oscuro — sistema */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:        #131D25;
+        --surface:   #1C2B36;
+        --surface-2: #243342;
+        --ink:       #E8E2D8;
+        --muted:     #8A9EAD;
+        --border:    rgba(232, 226, 216, .10);
+        --accent:    #5DAE9A;
+        --accent-lt: #72C4AE;
+        --shadow:    0 2px 24px rgba(0, 0, 0, .35);
+      }
+    }
+
+    /* Modo oscuro — explícito */
+    :root[data-theme="dark"] {
+      --bg:        #131D25;
+      --surface:   #1C2B36;
+      --surface-2: #243342;
+      --ink:       #E8E2D8;
+      --muted:     #8A9EAD;
+      --border:    rgba(232, 226, 216, .10);
+      --accent:    #5DAE9A;
+      --accent-lt: #72C4AE;
+      --shadow:    0 2px 24px rgba(0, 0, 0, .35);
+    }
+
+    /* ============================================================
+       RESET Y BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.65;
+      padding-inline: clamp(1rem, 5vw, 2rem);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; }
+
+    /* ============================================================
+       TIPOGRAFÍA UTILITARIA
+       ============================================================ */
+
+    /* Eyebrow — etiqueta de sección */
+    .eyebrow {
+      display: block;
+      font-family: var(--body);
+      font-size: var(--t-2xs);
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .6rem;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      text-wrap: balance;
+      line-height: 1.13;
+      letter-spacing: -.02em;
+    }
+
+    h1 {
+      font-size: clamp(var(--t-2xl), 6.5vw, var(--t-3xl));
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: clamp(var(--t-xl), 4.5vw, var(--t-2xl));
+      font-weight: 600;
+    }
+
+    h3 {
+      font-family: var(--body);
+      font-size: var(--t-md);
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    .lead {
+      font-size: var(--t-md);
+      color: var(--ink);
+      max-width: 54ch;
+      line-height: 1.6;
+    }
+
+    p { max-width: 60ch; color: var(--muted); }
+
+    /* ============================================================
+       LAYOUT — contenedor y secciones
+       ============================================================ */
+    .wrap {
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    .sec {
+      padding-block: var(--sec);
+    }
+
+    /* Separador entre secciones */
+    .sec + .sec {
+      border-top: 1px solid var(--border);
+    }
+
+    /* Separador de stack vertical dentro de sección */
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap, 1.25rem);
+    }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding-block: 1rem;
+    }
+
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+
+    .nav-cta {
+      font-size: var(--t-sm);
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      padding: .4rem .9rem;
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .nav-cta:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Link "Ver demo" en el nav */
+    .nav-link-demo {
+      font-size: var(--t-sm);
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .nav-link-demo:hover { color: var(--accent); }
+
+    /* ============================================================
+       BOTONES
+       ============================================================ */
+    .btn {
+      display: inline-block;
+      font-family: var(--body);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background .18s, transform .14s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Botón primario — rojo ladrillo, un solo uso en la página */
+    .btn-primary {
+      background: var(--cta);
+      color: #fff;
+      padding: .9rem 2rem;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--cta-h);
+      transform: translateY(-1px);
+    }
+
+    /* ============================================================
+       SECCIÓN 1 — HERO
+       ============================================================ */
+    .hero {
+      padding-top: clamp(3rem, 9vw, 5.5rem);
+      padding-bottom: clamp(2.5rem, 7vw, 4.5rem);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero .lead {
+      margin-top: .2rem;
+    }
+
+    .hero p.sub {
+      font-size: var(--t-md);
+      color: var(--muted);
+      max-width: 50ch;
+    }
+
+    .hero-cta {
+      margin-top: .5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       SECCIÓN 2 — PARA QUIÉN
+       ============================================================ */
+    .para-quien-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .pq-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .pq-card.no {
+      background: transparent;
+      border-style: dashed;
+      opacity: .75;
+    }
+
+    .pq-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: .85rem;
+      margin-bottom: .8rem;
+    }
+
+    .pq-card:not(.no) .pq-mark {
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      color: var(--accent);
+    }
+
+    .pq-card.no .pq-mark {
+      background: color-mix(in srgb, var(--muted) 15%, transparent);
+      color: var(--muted);
+    }
+
+    .pq-card h3 {
+      margin-bottom: .4rem;
+    }
+
+    .pq-card p {
+      font-size: var(--t-sm);
+      max-width: none;
+    }
+
+    /* Lista de viñetas dentro de las cards de para quién */
+    .pq-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: .55rem;
+    }
+
+    .pq-list li {
+      font-size: var(--t-sm);
+      color: var(--muted);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.45;
+      max-width: none;
+    }
+
+    .pq-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .pq-card.no .pq-list li::before {
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       SECCIÓN 3 — DEMO ANTES / DESPUÉS
+       ============================================================ */
+    .demo-wrap {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 2.5rem 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .demo-panel {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      min-height: 230px;
+    }
+
+    .demo-label {
+      font-size: var(--t-2xs);
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    .demo-label.antes-l { color: var(--muted); }
+    .demo-label.despues-l { color: var(--accent); }
+
+    /* Panel ANTES — caos visual */
+    .panel-antes {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .postit {
+      background: #FFF8C0;
+      color: #3D3200;
+      font-size: var(--t-xs);
+      font-family: var(--body);
+      padding: .4rem .6rem;
+      border-radius: 3px;
+      box-shadow: 1px 2px 4px rgba(0,0,0,.12);
+      width: fit-content;
+      max-width: 95%;
+      line-height: 1.4;
+    }
+
+    .postit:nth-child(2) { transform: rotate(-1.3deg) translateX(4px); }
+    .postit:nth-child(3) { transform: rotate(.9deg); }
+    .postit:nth-child(4) { transform: rotate(-2.1deg) translateX(2px); }
+    .postit:nth-child(5) { transform: rotate(1.2deg) translateX(-3px); }
+
+    .antes-nota-texto {
+      margin-top: .75rem;
+      font-size: var(--t-2xs);
+      color: var(--muted);
+      font-style: italic;
+      border-left: 2px solid var(--border);
+      padding-left: .5rem;
+      line-height: 1.5;
+    }
+
+    /* La flecha central */
+    .demo-arrow {
+      text-align: center;
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+
+    /* Panel DESPUÉS — ficha digital */
+    .ficha {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: var(--t-xs);
+    }
+
+    .ficha-head {
+      background: var(--accent);
+      color: #fff;
+      padding: .55rem .85rem;
+      font-weight: 600;
+      font-size: var(--t-sm);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .ficha-head .avatar {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .ficha-body {
+      background: var(--surface-2);
+      padding: .65rem .85rem;
+      display: grid;
+      gap: .4rem;
+    }
+
+    .ficha-row {
+      display: flex;
+      gap: .5rem;
+      line-height: 1.4;
+    }
+
+    .ficha-key {
+      color: var(--muted);
+      min-width: 70px;
+      font-size: var(--t-2xs);
+      font-weight: 500;
+      padding-top: .05em;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .ficha-val {
+      color: var(--ink);
+      font-size: var(--t-xs);
+    }
+
+    .ficha-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .2rem;
+      background: color-mix(in srgb, #E25C2C 12%, transparent);
+      color: #C04010;
+      font-size: var(--t-2xs);
+      font-weight: 600;
+      padding: .1rem .35rem;
+      border-radius: 4px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .postit {
+        background: #4A4020;
+        color: #F0E890;
+      }
+
+      :root:not([data-theme="light"]) .ficha-body {
+        background: var(--surface-2);
+      }
+
+      :root:not([data-theme="light"]) .ficha-badge {
+        background: color-mix(in srgb, #E25C2C 20%, transparent);
+        color: #F08060;
+      }
+    }
+
+    :root[data-theme="dark"] .postit {
+      background: #4A4020;
+      color: #F0E890;
+    }
+
+    :root[data-theme="dark"] .ficha-body {
+      background: var(--surface-2);
+    }
+
+    :root[data-theme="dark"] .ficha-badge {
+      background: color-mix(in srgb, #E25C2C 20%, transparent);
+      color: #F08060;
+    }
+
+    /* ============================================================
+       SECCIÓN 4 — CÓMO TRABAJO (6 pasos, 3 por fila)
+       ============================================================ */
+    .pasos {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem 1.5rem;
+    }
+
+    .paso {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .55rem;
+    }
+
+    .paso-num {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* El paso de la reunión tiene el número destacado */
+    .paso.destacado .paso-num {
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+
+    .paso h3 {
+      font-size: var(--t-sm);
+      font-weight: 600;
+    }
+
+    .paso p {
+      font-size: var(--t-xs);
+      max-width: 26ch;
+      color: var(--muted);
+    }
+
+    .pasos-nota {
+      margin-top: 1.75rem;
+      font-size: var(--t-sm);
+      color: var(--muted);
+    }
+
+    .pasos-nota strong {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       SECCIÓN 5 — PRESUPUESTO
+       ============================================================ */
+    .presupuesto-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .presupuesto-layout blockquote {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(var(--t-lg), 3vw, var(--t-xl));
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1.35;
+      text-wrap: balance;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.25rem;
+    }
+
+    /* ============================================================
+       SECCIÓN 6 — FAQ (acordeón nativo)
+       ============================================================ */
+    .faq-list {
+      margin-top: 2rem;
+      display: grid;
+      gap: .5rem;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    /* Ocultar el triángulo nativo del <summary> */
+    .faq-q {
+      list-style: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      font-size: var(--t-sm);
+      font-weight: 500;
+      color: var(--ink);
+      transition: background .15s;
+      user-select: none;
+    }
+
+    .faq-q:hover {
+      background: var(--bg);
+    }
+
+    .faq-q:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .faq-icon {
+      font-size: .75rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform .22s;
+    }
+
+    details[open] .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      padding: 0 1.25rem 1rem;
+      font-size: var(--t-sm);
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: none;
+    }
+
+    .faq-wsp {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .faq-wsp:hover { text-decoration: underline; }
+
+    /* ============================================================
+       SECCIÓN 7 — CTA FINAL
+       ============================================================ */
+    .cta-bloque {
+      background: var(--ink);
+      border-radius: 16px;
+      padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+      margin-block: var(--sec) 2rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .cta-bloque h2 {
+      color: #EDE8E0;
+      font-size: clamp(var(--t-xl), 4.5vw, var(--t-2xl));
+    }
+
+    .cta-bloque p.sub-cta {
+      color: rgba(237, 232, 224, .60);
+      max-width: 50ch;
+    }
+
+    .cta-bloque .disclaimer {
+      font-size: var(--t-xs);
+      color: rgba(237, 232, 224, .40);
+      max-width: none;
+    }
+
+    .cta-bloque .disclaimer a {
+      color: rgba(237, 232, 224, .55);
+      text-decoration: underline;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding-block: 1.5rem;
+      font-size: var(--t-xs);
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       ANIMACIONES DE ENTRADA
+       ============================================================ */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity .5s ease, transform .5s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE — tablet y móvil
+       ============================================================ */
+    @media (max-width: 680px) {
+      /* Para quién: columna única */
+      .para-quien-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Demo: apilado verticalmente */
+      .demo-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-arrow {
+        transform: rotate(90deg);
+        font-size: 1rem;
+        padding-block: .25rem;
+      }
+
+      /* Pasos: 2x2 */
+      .pasos {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pasos::before { display: none; }
+
+      /* Presupuesto: apilado */
+      .presupuesto-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      /* CTA header: solo logo */
+      .nav-cta { display: none; }
+    }
+
+    @media (max-width: 420px) {
+      /* Pasos: columna única en teléfonos muy chicos */
+      .pasos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="#" class="logo">Cinthia Calle</a>
+      <div style="display:flex; align-items:center; gap:.75rem;">
+        <a href="demo.html" class="nav-link-demo">Ver demo</a>
+        <a href="#reunion" class="nav-cta">Agendá una reunión</a>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+
+    <!-- ==========================================================
+         SECCIÓN 1 — QUIÉN SOY Y QUÉ OFREZCO
+         ========================================================== -->
+    <section class="sec hero" aria-labelledby="hero-h1">
+      <div class="stack" style="--gap: 1.25rem;">
+        <span class="eyebrow">Fichas digitales para centros de estética</span>
+        <h1 id="hero-h1">
+          El historial de cada clienta,<br>
+          <em>en tu celular en 7 días</em>
+        </h1>
+        <p class="lead">
+          Soy Cinthia. Le armo fichas digitales a centros de estética para que
+          dejen de buscar en libretas y se enfoquen en atender bien.
+        </p>
+        <p class="sub">
+          Sin aplicaciones raras. Sin capacitación.
+          Lo armamos juntas y en una semana ya lo estás usando con clientas reales.
+        </p>
+        <div class="hero-cta">
+          <a href="#reunion" class="btn btn-primary">Agendá una reunión de 20 minutos</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECCIÓN 2 — PARA QUIÉN SÍ / PARA QUIÉN NO
+         ========================================================== -->
+    <section class="sec fade-in" aria-labelledby="pq-h2">
+      <span class="eyebrow">Esto es para vos si…</span>
+      <h2 id="pq-h2">¿Tu negocio encaja?</h2>
+
+      <div class="para-quien-grid">
+        <!-- Sí -->
+        <div class="pq-card">
+          <div class="pq-mark">✓</div>
+          <h3>Sí, esto es para vos</h3>
+          <ul class="pq-list">
+            <li>Atendés clientas frecuentes y perdés tiempo buscando qué tratamiento hicieron la última vez.</li>
+            <li>Querés que tus empleadas también puedan consultar el historial sin preguntarte a vos.</li>
+            <li>Necesitás dar una atención más prolija, sin pagar un sistema complicado.</li>
+          </ul>
+        </div>
+        <!-- No -->
+        <div class="pq-card no">
+          <div class="pq-mark">✗</div>
+          <h3>Todavía no lo necesitás</h3>
+          <ul class="pq-list">
+            <li>Recién arrancás o atendés menos de 10 clientas por mes — todavía no vale la pena.</li>
+            <li>Ya tenés un sistema digital que te funciona y no querés cambiar nada.</li>
+            <li>Necesitás algo que también maneje turnos, pagos o stock — eso no es lo que hago yo.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECCIÓN 3 — DEMO: ANTES Y DESPUÉS
+         ========================================================== -->
+    <section class="sec fade-in" aria-labelledby="demo-h2">
+      <span class="eyebrow">Así se ve el cambio</span>
+      <h2 id="demo-h2">Antes y después, en concreto</h2>
+      <p style="margin-top: .4rem;">
+        Abrís el celular, buscás el nombre y en 5 segundos sabés todo
+        lo que necesitás saber de esa clienta.
+      </p>
+
+      <div class="demo-wrap">
+
+        <!-- Panel ANTES -->
+        <div class="demo-panel">
+          <div class="demo-label antes-l">Antes</div>
+          <div class="panel-antes">
+            <div class="postit">María → HidraFacial ✓ (alergia nueces)</div>
+            <div class="postit">Laura — próx. turno lunes?? llamar</div>
+            <div class="postit">Rosa peeling 3 ses. → va por la 2</div>
+            <div class="postit">Carmen: crema que no le gustó!!!</div>
+            <p class="antes-nota-texto">
+              Libreta, papelitos, notas de WhatsApp…<br>
+              Información perdida entre conversaciones.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flecha central -->
+        <div class="demo-arrow" aria-hidden="true">→</div>
+
+        <!-- Panel DESPUÉS — ficha digital simulada -->
+        <div class="demo-panel">
+          <div class="demo-label despues-l">Después</div>
+          <div class="ficha">
+            <div class="ficha-head">
+              <div class="avatar">MG</div>
+              María González
+            </div>
+            <div class="ficha-body">
+              <div class="ficha-row">
+                <span class="ficha-key">Último</span>
+                <span class="ficha-val">HidraFacial — 03/09/2026</span>
+              </div>
+              <div class="ficha-row">
+                <span class="ficha-key">Sesiones</span>
+                <span class="ficha-val">2 de 3 completadas</span>
+              </div>
+              <div class="ficha-row">
+                <span class="ficha-key">Alergias</span>
+                <span class="ficha-val">
+                  <span class="ficha-badge">⚠ Nueces</span>
+                </span>
+              </div>
+              <div class="ficha-row">
+                <span class="ficha-key">Próximo</span>
+                <span class="ficha-val">Lun 15/09, 10:00 h</span>
+              </div>
+              <div class="ficha-row">
+                <span class="ficha-key">Notas</span>
+                <span class="ficha-val">Prefiere música tranquila</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="margin-top:1.5rem;">
+        <a href="demo.html" style="color:var(--accent); font-weight:600; font-size:var(--t-sm); text-decoration:none;">
+          Probá la demo completa — buscá una clienta y mirá su historial →
+        </a>
+      </p>
+    </section>
+
+
+    <!-- ==========================================================
+         SECCIÓN 4 — CÓMO TRABAJO, PASO A PASO
+         ========================================================== -->
+    <section class="sec fade-in" aria-labelledby="pasos-h2">
+      <span class="eyebrow">El proceso</span>
+      <h2 id="pasos-h2">Cómo arrancamos</h2>
+      <p style="margin-top:.4rem;">
+        Sin reuniones de diagnóstico previas ni formularios largos.
+        El primer paso lo das sola, a tu ritmo.
+      </p>
+
+      <div class="pasos" role="list">
+        <div class="paso" role="listitem">
+          <div class="paso-num">1</div>
+          <h3>Ves la demo</h3>
+          <p>Recorrés la demo sola, sin que nadie te explique nada. Si te convence, seguís.</p>
+        </div>
+        <div class="paso" role="listitem">
+          <div class="paso-num">2</div>
+          <h3>Me escribís</h3>
+          <p>Un mensaje por WhatsApp es suficiente. Sin formularios ni llamadas previas.</p>
+        </div>
+        <div class="paso destacado" role="listitem">
+          <div class="paso-num">3</div>
+          <h3>Reunión de 20 minutos</h3>
+          <p>Hablo con vos, entiendo tu negocio. Si tiene sentido para las dos, ahí hablamos de inversión.</p>
+        </div>
+        <div class="paso" role="listitem">
+          <div class="paso-num">4</div>
+          <h3>Me contás cómo trabajás</h3>
+          <p>Una hora juntas para entender tu día a día y qué datos necesitás tener a mano.</p>
+        </div>
+        <div class="paso" role="listitem">
+          <div class="paso-num">5</div>
+          <h3>Armo tu ficha</h3>
+          <p>La diseño a medida de tu negocio, la probamos y ajustamos hasta que quede bien.</p>
+        </div>
+        <div class="paso" role="listitem">
+          <div class="paso-num">6</div>
+          <h3>La dejamos funcionando</h3>
+          <p>En 7 días hábiles ya la estás usando con clientas reales.</p>
+        </div>
+      </div>
+
+      <p class="pasos-nota">
+        <strong>Primero la demo, después la charla.</strong> No te pido que confíes en una promesa — te muestro cómo funciona y decidís vos.
+      </p>
+    </section>
+
+
+    <!-- ==========================================================
+         SECCIÓN 5 — CÓMO ARMO UN PRESUPUESTO
+         ========================================================== -->
+    <section class="sec fade-in" aria-labelledby="precio-h2">
+      <span class="eyebrow">La inversión</span>
+      <h2 id="precio-h2">El número se habla después de ver cómo funciona</h2>
+
+      <div class="presupuesto-layout">
+        <div class="stack" style="--gap: .9rem;">
+          <p class="lead">
+            Primero agendamos una reunión de 20 minutos: te muestro la demo,
+            entiendo tu negocio y ahí sí tiene sentido hablar de inversión.
+          </p>
+          <p>
+            No hay número en esta página porque lo que te cobro depende de
+            lo que realmente necesitás — y eso lo vemos juntas.
+          </p>
+        </div>
+        <blockquote>
+          "Primero veamos si le sirve a tu negocio. Después hablamos de plata."
+        </blockquote>
+      </div>
+    </section>
+
+
+    <!-- ==========================================================
+         SECCIÓN 6 — PREGUNTAS FRECUENTES
+         ========================================================== -->
+    <section class="sec fade-in" aria-labelledby="faq-h2">
+      <span class="eyebrow">Las dudas que siempre aparecen</span>
+      <h2 id="faq-h2">Preguntas frecuentes</h2>
+      <p style="margin-top:.4rem;">
+        Y si no encontrás lo que buscás,
+        <a class="faq-wsp" href="#">escribime por WhatsApp</a>
+        y te respondo el mismo día.
+      </p>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Lo pueden usar mis empleadas?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            Sí. La ficha se puede compartir con tu equipo. Cada una accede desde
+            su propio celular, sin instalar nada ni crear cuentas complicadas.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Se borra si cambio de celular?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            No. La información queda guardada en la nube. Cambiás de teléfono,
+            entrás de nuevo con tu usuario y todo sigue ahí, intacto.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Reemplaza mi agenda de turnos?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            No reemplaza la agenda, la complementa. La agenda te dice
+            <em>cuándo</em> viene la clienta; la ficha te dice
+            <em>qué hacerle</em> cuando llegue.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Necesito saber de tecnología?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            Para nada. Si sabés usar WhatsApp, podés usar esto.
+            No hay aplicaciones raras ni configuraciones difíciles.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Qué pasa si necesito cambiar algo después?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            Me avisás por WhatsApp y lo vemos juntas. La primera semana
+            hago todos los ajustes sin costo adicional.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">
+            ¿Cuánto tarda en estar listo?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">
+            Una semana desde que empezamos. En ese plazo está diseñada,
+            probada y en uso real con tus clientas.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+  </div><!-- /wrap -->
+
+
+  <!-- ==========================================================
+       SECCIÓN 7 — BOTÓN DE CIERRE (borde a borde dentro del wrap)
+       ========================================================== -->
+  <div class="wrap">
+    <div class="cta-bloque" id="reunion">
+      <span class="eyebrow" style="color: rgba(237,232,224,.45);">Sin compromiso</span>
+      <h2>Veamos si esto es para tu negocio</h2>
+      <p class="sub-cta">
+        Reunión de 20 minutos. Te muestro cómo funciona y charlamos.
+        Si no te convence, no pasa nada — al menos sabés qué opciones existen.
+      </p>
+      <div>
+        <!-- El link se agrega cuando se confirma la plataforma de agenda -->
+        <a href="#" class="btn btn-primary">Agendá una reunión de 20 minutos</a>
+      </div>
+      <p class="disclaimer">
+        O si preferís,
+        <a href="#">escribime por WhatsApp</a>.
+        Respondo el mismo día.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <p style="max-width: none; color: var(--muted);">
+        © 2026 Cinthia Calle · Fichas digitales para centros de estética
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JS — Animaciones de entrada suaves con IntersectionObserver
+       El hero se marca visible de inmediato (ya está en pantalla).
+       ============================================================ -->
+  <script>
+    (function () {
+      // El hero no necesita animación de entrada — ya se ve al cargar
+      const hero = document.querySelector('.hero');
+      if (hero) hero.classList.add('visible');
+
+      // Las demás secciones se animan al entrar en el viewport
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+
+      document.querySelectorAll('.fade-in').forEach((el) => obs.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
