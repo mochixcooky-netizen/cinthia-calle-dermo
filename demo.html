@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo · Cinthia Calle</title>
+  <meta name="description" content="Probá cómo se ve la ficha digital de clientas para centros de estética." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS — mismos que index.html
+       ============================================================ */
+    :root {
+      --bg:        #EDEAE4;
+      --surface:   #F6F3EF;
+      --surface-2: #FFFFFF;
+      --ink:       #1B2730;
+      --muted:     #6C7B88;
+      --border:    rgba(27, 39, 48, .11);
+      --accent:    #3B6E60;
+      --accent-lt: #4D8A7A;
+      --cta:       #C24F38;
+      --cta-h:     #A83F2B;
+
+      --display: 'Fraunces', Georgia, serif;
+      --body:    'Outfit', system-ui, sans-serif;
+
+      --t-2xs: .7rem;
+      --t-xs:  .8rem;
+      --t-sm:  .9rem;
+      --t-md:  1.125rem;
+      --t-lg:  1.4rem;
+      --t-xl:  1.85rem;
+      --t-2xl: 2.4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:        #131D25;
+        --surface:   #1C2B36;
+        --surface-2: #243342;
+        --ink:       #E8E2D8;
+        --muted:     #8A9EAD;
+        --border:    rgba(232, 226, 216, .10);
+        --accent:    #5DAE9A;
+        --accent-lt: #72C4AE;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg:        #131D25;
+      --surface:   #1C2B36;
+      --surface-2: #243342;
+      --ink:       #E8E2D8;
+      --muted:     #8A9EAD;
+      --border:    rgba(232, 226, 216, .10);
+      --accent:    #5DAE9A;
+      --accent-lt: #72C4AE;
+    }
+
+    /* ============================================================
+       RESET Y BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.65;
+      padding-inline: clamp(1rem, 5vw, 2rem);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       HEADER MÍNIMO
+       ============================================================ */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding-block: .9rem;
+    }
+
+    .site-header .wrap {
+      max-width: 820px;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .back-link {
+      font-size: var(--t-sm);
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .wrap {
+      max-width: 820px;
+      margin-inline: auto;
+    }
+
+    /* ============================================================
+       BLOQUE ANTES
+       ============================================================ */
+    .antes-bloque {
+      padding-block: 3rem 2rem;
+    }
+
+    .antes-trio {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Cada "lugar donde buscar" antes */
+    .antes-item {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: .85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: var(--t-sm);
+      color: var(--muted);
+      position: relative;
+      flex: 1 1 140px;
+    }
+
+    .antes-item .icon {
+      font-size: 1.2rem;
+      filter: grayscale(1);
+      opacity: .6;
+    }
+
+    /* Tachado visual encima del ítem */
+    .antes-item::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      right: 1rem;
+      height: 1.5px;
+      background: var(--muted);
+      opacity: .35;
+      transform: rotate(-4deg);
+    }
+
+    .antes-frase {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, var(--t-lg));
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      max-width: 58ch;
+      padding-left: 1.1rem;
+      border-left: 3px solid var(--border);
+    }
+
+    /* Flecha que separa antes del demo */
+    .flecha-separador {
+      text-align: center;
+      padding-block: 1.25rem .5rem;
+      font-size: 1.5rem;
+      color: var(--accent);
+      letter-spacing: .1em;
+    }
+
+    /* ============================================================
+       BLOQUE DEMO
+       ============================================================ */
+    .demo-bloque {
+      padding-block: .5rem 2.5rem;
+    }
+
+    .demo-intro {
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-intro h2 {
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 3.5vw, var(--t-xl));
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: .5rem;
+    }
+
+    .demo-intro p {
+      font-size: var(--t-sm);
+      color: var(--muted);
+      max-width: 54ch;
+    }
+
+    /* Chips para sugerir nombres a probar */
+    .sugerencias {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: 1.1rem;
+      align-items: center;
+    }
+
+    .sugerencias-label {
+      font-size: var(--t-xs);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .chip {
+      font-family: var(--body);
+      font-size: var(--t-xs);
+      font-weight: 500;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+      border-radius: 20px;
+      padding: .25rem .75rem;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+
+    .chip:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .chip:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ============================================================
+       BUSCADOR
+       ============================================================ */
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-field {
+      display: flex;
+      align-items: center;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: .8rem 1rem;
+      gap: .6rem;
+      transition: border-color .18s;
+    }
+
+    .search-field:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+
+    .search-icon {
+      color: var(--muted);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    #search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--body);
+      font-size: var(--t-md);
+      color: var(--ink);
+      outline: none;
+      min-width: 0;
+    }
+
+    #search-input::placeholder {
+      color: var(--muted);
+      opacity: .7;
+    }
+
+    .search-clear {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: .85rem;
+      padding: .1rem;
+      line-height: 1;
+      transition: color .15s;
+      flex-shrink: 0;
+    }
+
+    .search-clear:hover { color: var(--ink); }
+    .search-clear.visible { display: block; }
+
+    /* Dropdown de resultados */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + .4rem);
+      left: 0;
+      right: 0;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(27, 39, 48, .12);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .dropdown-item {
+      width: 100%;
+      background: none;
+      border: none;
+      font-family: var(--body);
+      font-size: var(--t-sm);
+      color: var(--ink);
+      padding: .75rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      transition: background .12s;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item.active {
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+      color: var(--accent);
+    }
+
+    .dropdown-item + .dropdown-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .dropdown-avatar {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      color: var(--accent);
+      font-size: .65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .dropdown-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+
+    .dropdown-item-name {
+      font-weight: 500;
+    }
+
+    .dropdown-item-meta {
+      font-size: var(--t-2xs);
+      color: var(--muted);
+    }
+
+    .dropdown-empty {
+      padding: .75rem 1rem;
+      font-size: var(--t-sm);
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ============================================================
+       FICHA DIGITAL
+       ============================================================ */
+    .result-wrap {
+      margin-top: 1.5rem;
+    }
+
+    .result-wrap.oculto {
+      display: none;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .ficha-card {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: slideUp .3s ease;
+    }
+
+    /* Cabecera verde */
+    .ficha-header {
+      background: var(--accent);
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+
+    .ficha-avatar {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ficha-header-info h3 {
+      font-family: var(--display);
+      font-size: var(--t-lg);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -.01em;
+    }
+
+    .ficha-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: .3rem;
+    }
+
+    .ficha-pill {
+      font-size: var(--t-2xs);
+      font-weight: 500;
+      background: rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .9);
+      border-radius: 20px;
+      padding: .15rem .55rem;
+    }
+
+    /* Cuerpo de la ficha — secciones */
+    .ficha-body {
+      padding: 1.25rem 1.4rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .ficha-sec-title {
+      font-size: var(--t-2xs);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .55rem;
+    }
+
+    /* Próximo turno — tarjeta destacada */
+    .proximo-turno-card {
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      border-radius: 10px;
+      padding: .85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .turno-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .turno-info strong {
+      display: block;
+      font-size: var(--t-sm);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .turno-info span {
+      font-size: var(--t-xs);
+      color: var(--muted);
+    }
+
+    /* Timeline de sesiones */
+    .sesiones-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .sesion-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding-block: .55rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sesion-item:last-child { border-bottom: none; }
+
+    .sesion-fecha {
+      font-size: var(--t-xs);
+      color: var(--muted);
+      min-width: 52px;
+      padding-top: .05em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sesion-detalle {
+      flex: 1;
+    }
+
+    .sesion-tipo {
+      font-size: var(--t-sm);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .sesion-prod {
+      font-size: var(--t-xs);
+      color: var(--muted);
+    }
+
+    .sesion-nota {
+      font-size: var(--t-xs);
+      color: var(--muted);
+      font-style: italic;
+      margin-top: .15rem;
+    }
+
+    /* Notas e información extra */
+    .notas-grid {
+      display: grid;
+      gap: .5rem;
+    }
+
+    .nota-row {
+      display: flex;
+      gap: .6rem;
+      font-size: var(--t-sm);
+      line-height: 1.45;
+    }
+
+    .nota-key {
+      font-weight: 600;
+      color: var(--muted);
+      font-size: var(--t-xs);
+      min-width: 72px;
+      padding-top: .1em;
+    }
+
+    .nota-val {
+      color: var(--ink);
+    }
+
+    .alergia-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .2rem;
+      font-size: var(--t-xs);
+      font-weight: 600;
+      background: color-mix(in srgb, #E25C2C 12%, transparent);
+      color: #B84020;
+      border-radius: 5px;
+      padding: .15rem .4rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .alergia-badge {
+        background: color-mix(in srgb, #E25C2C 20%, transparent);
+        color: #F08060;
+      }
+    }
+
+    :root[data-theme="dark"] .alergia-badge {
+      background: color-mix(in srgb, #E25C2C 20%, transparent);
+      color: #F08060;
+    }
+
+    /* ============================================================
+       BLOQUE DESPUÉS + CTA
+       ============================================================ */
+    .despues-bloque {
+      padding-block: 2rem 3rem;
+    }
+
+    .despues-bloque.oculto { display: none; }
+
+    .despues-frase {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(1.1rem, 3vw, var(--t-lg));
+      font-weight: 500;
+      color: var(--ink);
+      max-width: 52ch;
+      margin-bottom: 1.75rem;
+      line-height: 1.4;
+    }
+
+    .cta-box {
+      background: var(--ink);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      display: grid;
+      gap: .9rem;
+    }
+
+    .cta-box h3 {
+      font-family: var(--display);
+      font-size: clamp(1.1rem, 3vw, var(--t-lg));
+      font-weight: 700;
+      color: #EDE8E0;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+    }
+
+    .cta-box p {
+      font-size: var(--t-sm);
+      color: rgba(237, 232, 224, .60);
+      max-width: 50ch;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: var(--cta);
+      color: #fff;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: .85rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .18s, transform .14s;
+      width: fit-content;
+      margin-top: .25rem;
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-h);
+      transform: translateY(-1px);
+    }
+
+    .btn-cta:focus-visible {
+      outline: 3px solid var(--cta);
+      outline-offset: 3px;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding-block: 1.25rem;
+      font-size: var(--t-xs);
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 500px) {
+      .antes-trio { gap: .5rem; }
+      .ficha-header { flex-direction: column; align-items: flex-start; }
+      .ficha-body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header mínimo -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="logo">Cinthia Calle</a>
+      <a href="index.html" class="back-link">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <!-- ======================================================
+           ANTES
+           ====================================================== -->
+      <section class="antes-bloque">
+
+        <!-- Tres fuentes del caos -->
+        <div class="antes-trio" role="img" aria-label="Fuentes del caos antes de la ficha digital">
+          <div class="antes-item">
+            <span class="icon" aria-hidden="true">📓</span>
+            Libreta de turno
+          </div>
+          <div class="antes-item">
+            <span class="icon" aria-hidden="true">📱</span>
+            Notas de WhatsApp
+          </div>
+          <div class="antes-item">
+            <span class="icon" aria-hidden="true">🧠</span>
+            Memoria propia
+          </div>
+        </div>
+
+        <blockquote class="antes-frase">
+          "Antes de que entrara la clienta, la pregunta siempre era la misma:
+          ¿dónde puse lo que hice la última vez?"
+        </blockquote>
+
+      </section>
+
+      <div class="flecha-separador" aria-hidden="true">↓</div>
+
+      <!-- ======================================================
+           DEMO INTERACTIVA
+           ====================================================== -->
+      <section class="demo-bloque">
+
+        <div class="demo-intro">
+          <h2>Con la ficha digital, buscás en segundos</h2>
+          <p>Escribí un nombre y mirá cómo se ve el historial completo de una clienta.</p>
+        </div>
+
+        <!-- Chips sugeridos para facilitar el uso de la demo -->
+        <div class="sugerencias">
+          <span class="sugerencias-label">Probá con:</span>
+          <button class="chip" data-nombre="María González" type="button">María</button>
+          <button class="chip" data-nombre="Laura Martínez" type="button">Laura</button>
+          <button class="chip" data-nombre="Sofía Rodríguez" type="button">Sofía</button>
+          <button class="chip" data-nombre="Carmen López" type="button">Carmen</button>
+          <button class="chip" data-nombre="Patricia Fernández" type="button">Patricia</button>
+        </div>
+
+        <!-- Input de búsqueda -->
+        <div class="search-wrap">
+          <div class="search-field">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              id="search-input"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Escribí un nombre..."
+              aria-label="Buscar clienta"
+              aria-autocomplete="list"
+              aria-controls="dropdown"
+            />
+            <button class="search-clear" id="search-clear" type="button" aria-label="Limpiar búsqueda">✕</button>
+          </div>
+          <div id="dropdown" class="dropdown" role="listbox" aria-label="Resultados" hidden></div>
+        </div>
+
+        <!-- Ficha (se muestra al seleccionar clienta) -->
+        <div id="result-wrap" class="result-wrap oculto" aria-live="polite" aria-atomic="true">
+          <!-- Renderizado dinámicamente por JS -->
+        </div>
+
+      </section>
+
+      <!-- ======================================================
+           DESPUÉS + CTA (se muestra al seleccionar clienta)
+           ====================================================== -->
+      <div id="despues-bloque" class="despues-bloque oculto">
+
+        <p class="despues-frase">
+          Eso es todo. En 5 segundos, sabés qué tratamientos hizo, qué producto
+          usó la última vez, si tiene alergias y cuándo vuelve.
+        </p>
+
+        <div class="cta-box">
+          <h3>¿Lo ves claro?</h3>
+          <p>Agendá 20 minutos y te armo la versión para tu negocio.</p>
+          <!-- Reemplazá href="#" con tu link de agenda (Calendly, etc.) -->
+          <a href="#" class="btn-cta">Agendá 20 minutos y te armo la versión para tu negocio</a>
+        </div>
+
+      </div>
+
+    </div><!-- /wrap -->
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p style="color: var(--muted); max-width: none;">
+        © 2026 Cinthia Calle · <a href="index.html" style="color: var(--muted);">Volver al inicio</a>
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       DATOS DE EJEMPLO — consultorio dermatológico y estética
+       ============================================================ -->
+  <script>
+    const clientas = [
+      {
+        id: 1,
+        iniciales: "MG",
+        nombre: "María González",
+        edad: 34,
+        inicio: "Marzo 2023",
+        visitas: 12,
+        tratamientos: [
+          {
+            fecha: "15/08/26",
+            tipo: "HidraFacial",
+            producto: "Hydropeptide",
+            nota: "Reaccionó muy bien. Repite en 30 días."
+          },
+          {
+            fecha: "10/07/26",
+            tipo: "Peeling enzimático",
+            producto: "NeoStrata Glycolic 10",
+            nota: ""
+          },
+          {
+            fecha: "05/06/26",
+            tipo: "HidraFacial",
+            producto: "Hydropeptide",
+            nota: "Pidió más presión en zona nariz."
+          }
+        ],
+        proximoTurno: {
+          fecha: "Lunes 15/09/2026",
+          hora: "10:30 h",
+          tipo: "HidraFacial"
+        },
+        alergias: "Nueces · Látex",
+        notas: "Prefiere música tranquila. Siempre a la mañana. Piel mixta-seca."
+      },
+      {
+        id: 2,
+        iniciales: "LM",
+        nombre: "Laura Martínez",
+        edad: 28,
+        inicio: "Enero 2024",
+        visitas: 7,
+        tratamientos: [
+          {
+            fecha: "02/09/26",
+            tipo: "Tratamiento acné activo",
+            producto: "Dermalogica Clear Start",
+            nota: "Mejoría notable en zona T. Continuar protocolo."
+          },
+          {
+            fecha: "05/08/26",
+            tipo: "Peeling salicílico",
+            producto: "SkinBetter Alto Advanced",
+            nota: ""
+          },
+          {
+            fecha: "01/07/26",
+            tipo: "LED antinflamatorio",
+            producto: "—",
+            nota: "30 min, modo rojo + azul combinado."
+          }
+        ],
+        proximoTurno: {
+          fecha: "Miércoles 17/09/2026",
+          hora: "15:00 h",
+          tipo: "Control acné"
+        },
+        alergias: "Ninguna conocida",
+        notas: "Usa retinol en casa: avisar que NO aplique el día anterior a la sesión."
+      },
+      {
+        id: 3,
+        iniciales: "SR",
+        nombre: "Sofía Rodríguez",
+        edad: 45,
+        inicio: "Octubre 2022",
+        visitas: 21,
+        tratamientos: [
+          {
+            fecha: "08/09/26",
+            tipo: "Ultraformer HIFU",
+            producto: "—",
+            nota: "3 pasadas en mentón. Próxima sesión en 6 meses."
+          },
+          {
+            fecha: "12/08/26",
+            tipo: "Mesoterapia facial",
+            producto: "Fillmed NCTF 135 HA",
+            nota: ""
+          },
+          {
+            fecha: "10/07/26",
+            tipo: "Ultraformer HIFU",
+            producto: "—",
+            nota: "Área facial completa. Buena tolerancia."
+          }
+        ],
+        proximoTurno: {
+          fecha: "Jueves 09/10/2026",
+          hora: "11:00 h",
+          tipo: "Revisión post-HIFU"
+        },
+        alergias: "Ibuprofeno",
+        notas: "Clienta desde 2022. Trae amigas al consultorio. Trato VIP."
+      },
+      {
+        id: 4,
+        iniciales: "CL",
+        nombre: "Carmen López",
+        edad: 52,
+        inicio: "Junio 2023",
+        visitas: 9,
+        tratamientos: [
+          {
+            fecha: "25/08/26",
+            tipo: "Despigmentación Cosmelan",
+            producto: "Mesoestetic Cosmelan 2",
+            nota: "2da aplicación. Irritación leve, es normal. Continuar crema."
+          },
+          {
+            fecha: "20/07/26",
+            tipo: "Peeling despigmentante",
+            producto: "PCA Skin Sensi Peel",
+            nota: ""
+          },
+          {
+            fecha: "18/06/26",
+            tipo: "Dermaplaning",
+            producto: "—",
+            nota: "Primera vez. Le gustó mucho el resultado."
+          }
+        ],
+        proximoTurno: {
+          fecha: "Lunes 22/09/2026",
+          hora: "09:00 h",
+          tipo: "Control Cosmelan"
+        },
+        alergias: "Fragancias fuertes",
+        notas: "Piel mixta con manchas solares. Indicar fotoprotección SPF 50 todos los días."
+      },
+      {
+        id: 5,
+        iniciales: "PF",
+        nombre: "Patricia Fernández",
+        edad: 39,
+        inicio: "Febrero 2025",
+        visitas: 4,
+        tratamientos: [
+          {
+            fecha: "01/09/26",
+            tipo: "Limpieza profunda + extracción",
+            producto: "Environ Sebuwash",
+            nota: "Zona T con comedones. Sin complicaciones."
+          },
+          {
+            fecha: "05/08/26",
+            tipo: "Vitamina C + mascarilla calmante",
+            producto: "SkinCeuticals C E Ferulic",
+            nota: ""
+          }
+        ],
+        proximoTurno: {
+          fecha: "Martes 30/09/2026",
+          hora: "10:00 h",
+          tipo: "Limpieza + vitamina C"
+        },
+        alergias: "Ninguna conocida",
+        notas: "Piel sensible. Primera limpieza profunda en agosto: buena tolerancia."
+      }
+    ];
+
+    /* ============================================================
+       LÓGICA DEL BUSCADOR
+       ============================================================ */
+
+    const searchInput  = document.getElementById('search-input');
+    const searchClear  = document.getElementById('search-clear');
+    const dropdown     = document.getElementById('dropdown');
+    const resultWrap   = document.getElementById('result-wrap');
+    const despuesBlq   = document.getElementById('despues-bloque');
+
+    let dropdownItems  = [];
+    let activeIndex    = -1;
+
+    /* Normalizar texto para búsqueda sin tildes */
+    function norm(str) {
+      return str.toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+    }
+
+    /* Filtrar clientas según el query */
+    function filtrar(q) {
+      return clientas.filter(c => norm(c.nombre).includes(norm(q)));
+    }
+
+    /* Mostrar / ocultar el botón de limpiar */
+    function actualizarClear() {
+      searchClear.classList.toggle('visible', searchInput.value.trim().length > 0);
+    }
+
+    /* Renderizar el dropdown con los resultados */
+    function mostrarDropdown(resultados) {
+      dropdown.innerHTML = '';
+      activeIndex = -1;
+
+      if (resultados.length === 0) {
+        dropdown.innerHTML = '<p class="dropdown-empty">No encontramos ese nombre. Probá con otro.</p>';
+        dropdown.hidden = false;
+        return;
+      }
+
+      dropdownItems = resultados.map((c, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dropdown-item';
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('data-index', i);
+        btn.innerHTML = `
+          <span class="dropdown-avatar" aria-hidden="true">${c.iniciales}</span>
+          <span class="dropdown-item-info">
+            <span class="dropdown-item-name">${c.nombre}</span>
+            <span class="dropdown-item-meta">${c.edad} años · ${c.visitas} visitas</span>
+          </span>
+        `;
+        btn.addEventListener('click', () => seleccionarClienta(c));
+        dropdown.appendChild(btn);
+        return btn;
+      });
+
+      dropdown.hidden = false;
+    }
+
+    /* Cerrar el dropdown */
+    function cerrarDropdown() {
+      dropdown.hidden = true;
+      dropdownItems = [];
+      activeIndex = -1;
+    }
+
+    /* Construir y mostrar la ficha de la clienta seleccionada */
+    function seleccionarClienta(c) {
+      searchInput.value = c.nombre;
+      cerrarDropdown();
+      actualizarClear();
+
+      /* Construir el HTML de las sesiones */
+      const sesionesHTML = c.tratamientos.map(s => `
+        <div class="sesion-item">
+          <span class="sesion-fecha">${s.fecha}</span>
+          <div class="sesion-detalle">
+            <div class="sesion-tipo">${s.tipo}</div>
+            ${s.producto && s.producto !== '—' ? `<div class="sesion-prod">${s.producto}</div>` : ''}
+            ${s.nota ? `<div class="sesion-nota">${s.nota}</div>` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      /* Badge de alergias */
+      const alergias = c.alergias !== 'Ninguna conocida'
+        ? `<span class="alergia-badge">⚠ ${c.alergias}</span>`
+        : `<span style="font-size:var(--t-sm); color:var(--muted);">Ninguna conocida</span>`;
+
+      /* Renderizar la ficha completa */
+      resultWrap.innerHTML = `
+        <div class="ficha-card">
+
+          <!-- Cabecera -->
+          <div class="ficha-header">
+            <div class="ficha-avatar" aria-hidden="true">${c.iniciales}</div>
+            <div class="ficha-header-info">
+              <h3>${c.nombre}</h3>
+              <div class="ficha-meta-pills">
+                <span class="ficha-pill">${c.edad} años</span>
+                <span class="ficha-pill">${c.visitas} visitas</span>
+                <span class="ficha-pill">Clienta desde ${c.inicio}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuerpo -->
+          <div class="ficha-body">
+
+            <!-- Próximo turno -->
+            <div>
+              <div class="ficha-sec-title">Próximo turno</div>
+              <div class="proximo-turno-card">
+                <div class="turno-icon" aria-hidden="true">📅</div>
+                <div class="turno-info">
+                  <strong>${c.proximoTurno.fecha} · ${c.proximoTurno.hora}</strong>
+                  <span>${c.proximoTurno.tipo}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Historial de sesiones -->
+            <div>
+              <div class="ficha-sec-title">Últimas sesiones</div>
+              <div class="sesiones-list">${sesionesHTML}</div>
+            </div>
+
+            <!-- Notas y alergias -->
+            <div>
+              <div class="ficha-sec-title">Notas importantes</div>
+              <div class="notas-grid">
+                <div class="nota-row">
+                  <span class="nota-key">Alergias</span>
+                  <span class="nota-val">${alergias}</span>
+                </div>
+                <div class="nota-row">
+                  <span class="nota-key">Notas</span>
+                  <span class="nota-val" style="font-size:var(--t-sm); color:var(--muted);">${c.notas}</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /ficha-body -->
+        </div><!-- /ficha-card -->
+      `;
+
+      /* Mostrar ficha y bloque después */
+      resultWrap.classList.remove('oculto');
+      despuesBlq.classList.remove('oculto');
+
+      /* Scroll suave hasta la ficha */
+      setTimeout(() => {
+        resultWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+
+    /* ============================================================
+       EVENTOS DEL INPUT
+       ============================================================ */
+
+    searchInput.addEventListener('input', () => {
+      actualizarClear();
+      const q = searchInput.value.trim();
+      if (q.length < 2) {
+        cerrarDropdown();
+        return;
+      }
+      mostrarDropdown(filtrar(q));
+    });
+
+    /* Navegación con teclado en el dropdown */
+    searchInput.addEventListener('keydown', (e) => {
+      if (dropdown.hidden) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, dropdownItems.length - 1);
+        dropdownItems.forEach((btn, i) => btn.classList.toggle('active', i === activeIndex));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        dropdownItems.forEach((btn, i) => btn.classList.toggle('active', i === activeIndex));
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIndex >= 0 && dropdownItems[activeIndex]) {
+          dropdownItems[activeIndex].click();
+        }
+      } else if (e.key === 'Escape') {
+        cerrarDropdown();
+      }
+    });
+
+    /* Botón limpiar */
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      actualizarClear();
+      cerrarDropdown();
+      searchInput.focus();
+    });
+
+    /* Cerrar dropdown al hacer clic afuera */
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrap')) cerrarDropdown();
+    });
+
+    /* ============================================================
+       CHIPS DE SUGERENCIAS
+       ============================================================ */
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const nombre = chip.dataset.nombre;
+        const c = clientas.find(cl => cl.nombre === nombre);
+        if (c) seleccionarClienta(c);
+      });
+    });
+  </script>
+
+</body>
+</html>
